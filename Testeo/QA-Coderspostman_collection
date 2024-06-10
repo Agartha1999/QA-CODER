@@ -1,0 +1,2197 @@
+{
+	"info": {
+		"_postman_id": "7e4688af-e050-4d23-904c-ec6a59c69eec",
+		"name": "QA-Coders",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33910051"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.sendRequest({\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/login/',\r",
+									"    method: 'POST', // Cambia el método a POST\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json'\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: 'raw',\r",
+									"        raw: JSON.stringify({\r",
+									"            \"mail\": \"sysadmin@qacoders.com\",\r",
+									"            \"password\": \"1234@Test\"\r",
+									"        })\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(err);\r",
+									"    } else {\r",
+									"        // Verifica si el token está presente en la respuesta\r",
+									"        var responseJson = res.json();\r",
+									"        if (responseJson.token) {\r",
+									"            pm.environment.set(\"token\", responseJson.token);\r",
+									"        } else {\r",
+									"            console.error(\"No se pudo obtener el token de la respuesta.\");\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Capturar el token\r",
+									"pm.test(\"check is token exist\",function(){\r",
+									"    console.log(JSON.parse(responseBody).authorization)\r",
+									"})\r",
+									"\r",
+									"//Capturar el token\r",
+									"pm.test(\"token exist\",function(){\r",
+									"    pm.expect(JSON.parse(responseBody).token).to.exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check is fullname true\", function(){\r",
+									"    pm.expect(JSON.parse(responseBody).user.fullName).to.exist;\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MTcsImV4cCI6MTcxNTIwNTkxN30.2yl-IQt_XJrcShl0BKnVVlsdL0ikYoNSSG6ismjheHo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"mail\": \"sysadmin@qacoders.com\",\r\n  \"password\": \"1234@Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/login/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validacion",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MTcsImV4cCI6MTcxNTIwNTkxN30.2yl-IQt_XJrcShl0BKnVVlsdL0ikYoNSSG6ismjheHo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/validateToken",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"validateToken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Crear_User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"variable_key\");\r",
+									"\r",
+									"pm.test(\"Check is fullname true\", function(){\r",
+									"    pm.expect(JSON.parse(responseBody).user.fullName).to.exist;\r",
+									"})\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//Crearemos una funcion api, para almacenar el nombre\r",
+									"function firstName(){\r",
+									"    let firstName = [\"William\", \"Johana\",\"Maria\", \"Pablo\", \"Karla\",\"Paul\",\"Esteban\",\"Alex\",\"Rodrigo\",\"Cell\",\"Alejandro\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= firstName[Math.floor(Math.random()*firstName.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"FirstName\",firstName())\r",
+									"//console.log(firstName()) //funcion para sortear nombres\r",
+									"\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function lastName(){\r",
+									"    let lastName = [\"Alves Souza\",\"Mamani Meza\",\"Castillo Quispe\",\"Torres Souza\",\"Vargas Lima\", \"Joaquin Carval\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= lastName[Math.floor(Math.random()*lastName.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"LastName\",lastName())\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\")+\" \"+pm.environment.get(\"LastName\"));\r",
+									"\r",
+									"\r",
+									"//Crear la funcion para AccesProfile\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function accessProfile(){\r",
+									"    let accessProfile = [\"ADMIN\",\"FINANCIERO\",\"ADMINISTRATIVO\",\"TI\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= accessProfile[Math.floor(Math.random()*accessProfile.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"AccessProfile\",accessProfile())\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//Correo electronico\r",
+									"\r",
+									"//Crear la funcion para AccesProfile\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function profileMail(){\r",
+									"    let profileMail = [\"@yahoo.com.br\",\"@gmail.com\",\"@outlook.com\",\"@hotmail.com\",\"@uol.com.br\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= profileMail[Math.floor(Math.random()*profileMail.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"ProfileMail\",profileMail())\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"Email\",pm.environment.get(\"FirstName\")+ \"_\"+ pm.variables.replaceIn(\"{{$guid}}\") +pm.environment.get(\"ProfileMail\"))\r",
+									"\r",
+									"\r",
+									"pm.request.headers.add({\r",
+									"    key: 'Authorization',\r",
+									"    value: 'Bearer ' + pm.environment.get('token')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"{{FullName}}\",\r\n  \"mail\": \"{{Email}}\",\r\n  \"accessProfile\": \"ADMIN\",\r\n  \"cpf\": \"11111115011\",\r\n  \"password\": \"1234@Test\",\r\n  \"confirmPassword\": \"1234@Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear_User_fulname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//validar el caracter especial\r",
+									"pm.test(\"Check msg: 0 campo 'fulname' é obrigatório\",function(){\r",
+									"    pm.expect(pm.globals.get(\"msgFullnameRequest\")).to.eql(JSON.parse(responseBody).error[0]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//Crearemos una funcion api, para almacenar el nombre\r",
+									"function firstName(){\r",
+									"    let firstName = [\"William\", \"Johana\",\"Maria\", \"Pablo\", \"Karla\",\"Paul\",\"Esteban\",\"Alex\",\"Rodrigo\",\"Cell\",\"Alejandro\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= firstName[Math.floor(Math.random()*firstName.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"FirstName\",firstName())\r",
+									"//console.log(firstName()) //funcion para sortear nombres\r",
+									"\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function lastName(){\r",
+									"    let lastName = [\"Alves Souza\",\"Mamani Meza\",\"Castillo Quispe\",\"Torres Souza\",\"Vargas Lima\", \"Joaquin Carval\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= lastName[Math.floor(Math.random()*lastName.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"LastName\",lastName())\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"FullName\", pm.environment.get(\"FirstName\")+\" \"+pm.environment.get(\"LastName\"));\r",
+									"\r",
+									"\r",
+									"//Crear la funcion para AccesProfile\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function accessProfile(){\r",
+									"    let accessProfile = [\"ADMIN\",\"FINANCIERO\",\"ADMINISTRATIVO\",\"TI\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= accessProfile[Math.floor(Math.random()*accessProfile.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"AccessProfile\",accessProfile())\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"//Correo electronico\r",
+									"\r",
+									"//Crear la funcion para AccesProfile\r",
+									"\r",
+									"//Crearemos una funcion api, para almacenar el sobrenombre\r",
+									"function profileMail(){\r",
+									"    let profileMail = [\"@yahoo.com.br\",\"@gmail.com\",\"@outlook.com\",\"@hotmail.com\",\"@uol.com.br\"] //variables\r",
+									"\r",
+									"    //aleatorio con las posiciones de la lista o array\r",
+									"    let randomItem= profileMail[Math.floor(Math.random()*profileMail.length)];\r",
+									"\r",
+									"    return randomItem\r",
+									"}\r",
+									"//almacenar el nombre en una variable de ambiente\r",
+									"pm.environment.set(\"ProfileMail\",profileMail())\r",
+									"\r",
+									"\r",
+									"pm.environment.set(\"Email\",pm.environment.get(\"FirstName\")+ \"_\"+ pm.variables.replaceIn(\"{{$guid}}\") +pm.environment.get(\"ProfileMail\"))\r",
+									"\r",
+									"\r",
+									"pm.request.headers.add({\r",
+									"    key: 'Authorization',\r",
+									"    value: 'Bearer ' + pm.environment.get('token')\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"\",\r\n  \"mail\": \"{{Email}}\",\r\n  \"accessProfile\": \"ADMIN\",\r\n  \"cpf\": \"11111115011\",\r\n  \"password\": \"1234@Test\",\r\n  \"confirmPassword\": \"1234@Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListUsers",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE0NzMxMmFlZGJhYmZkZWE3ODcyMDMiLCJmdWxsTmFtZSI6IkpvaGFuYSBNYXJpYSIsIm1haWwiOiJ0ZXN0YWlyYW1AdGVzdC5jb20uYnIiLCJwYXNzd29yZCI6IiQyYiQxMCQ2N3N5NzlCNEllUU9Xc3p2WDhid1FPV1JhelFSY29MeUFFU2FwdFRLaE5YUlhhR2poN2QyaSIsImFjY2Vzc1Byb2ZpbGUiOiJBRE1JTiIsImNwZiI6IjgxMTIyMjMzMzQ0Iiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoic2VndW5kYS1mZWlyYSwgMDgvMDQvMjAyNCwgMTk6NDM6MzAgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiUWFDb2RlcnMtNDEyIiwiX2lkIjoiNjYxNDczMTJhZWRiYWJmZGVhNzg3MjA0In1dLCJfX3YiOjAsImlhdCI6MTcxMjYyMTcwNSwiZXhwIjoxNzEyNzA4MTA1fQ.JadIJlmHzJmW9G1ucNCV_65higZKZg_6hIDxuvl21As",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CountUsers",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/count",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarUserID",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE0NzMxMmFlZGJhYmZkZWE3ODcyMDMiLCJmdWxsTmFtZSI6IkpvaGFuYSBNYXJpYSIsIm1haWwiOiJ0ZXN0YWlyYW1AdGVzdC5jb20uYnIiLCJwYXNzd29yZCI6IiQyYiQxMCQ2N3N5NzlCNEllUU9Xc3p2WDhid1FPV1JhelFSY29MeUFFU2FwdFRLaE5YUlhhR2poN2QyaSIsImFjY2Vzc1Byb2ZpbGUiOiJBRE1JTiIsImNwZiI6IjgxMTIyMjMzMzQ0Iiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoic2VndW5kYS1mZWlyYSwgMDgvMDQvMjAyNCwgMTk6NDM6MzAgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiUWFDb2RlcnMtNDEyIiwiX2lkIjoiNjYxNDczMTJhZWRiYWJmZGVhNzg3MjA0In1dLCJfX3YiOjAsImlhdCI6MTcxMjYyMTcwNSwiZXhwIjoxNzEyNzA4MTA1fQ.JadIJlmHzJmW9G1ucNCV_65higZKZg_6hIDxuvl21As",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Johana Raven\",\r\n  \"mail\": \"ravenm@test.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/66147312aedbabfdea787203",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								"66147312aedbabfdea787203"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BorrarUserId",
+					"request": {
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarContraeña",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE0NzMxMmFlZGJhYmZkZWE3ODcyMDMiLCJmdWxsTmFtZSI6IkpvaGFuYSBNYXJpYSIsIm1haWwiOiJ0ZXN0YWlyYW1AdGVzdC5jb20uYnIiLCJwYXNzd29yZCI6IiQyYiQxMCQ2N3N5NzlCNEllUU9Xc3p2WDhid1FPV1JhelFSY29MeUFFU2FwdFRLaE5YUlhhR2poN2QyaSIsImFjY2Vzc1Byb2ZpbGUiOiJBRE1JTiIsImNwZiI6IjgxMTIyMjMzMzQ0Iiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoic2VndW5kYS1mZWlyYSwgMDgvMDQvMjAyNCwgMTk6NDM6MzAgQlJUIiwicmVnaXN0cmF0aW9uTnVtYmVyIjoiUWFDb2RlcnMtNDEyIiwiX2lkIjoiNjYxNDczMTJhZWRiYWJmZGVhNzg3MjA0In1dLCJfX3YiOjAsImlhdCI6MTcxMjYyMTcwNSwiZXhwIjoxNzEyNzA4MTA1fQ.JadIJlmHzJmW9G1ucNCV_65higZKZg_6hIDxuvl21As",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"dfefe35@Test\",\r\n  \"confirmPassword\": \"dfefe35@Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/user/password/66149877aedbabfdea7a8cc6",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"user",
+								"password",
+								"66149877aedbabfdea7a8cc6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarStatus",
+					"request": {
+						"method": "PUT",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Board",
+			"item": [
+				{
+					"name": "board",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"boardName\": \"Operações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListBoard",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "countBoard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/count",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarPor Id",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/65e52f259f7ed1872dcd8ca4",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								"65e52f259f7ed1872dcd8ca4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear board",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MTcsImV4cCI6MTcxNTIwNTkxN30.2yl-IQt_XJrcShl0BKnVVlsdL0ikYoNSSG6ismjheHo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Company",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTI2MDI3OTQsImV4cCI6MTcxMjY4OTE5NH0.KDWFAx8ADFmdGFEC-cvoBuzmW-aYBlIzKiVMkSXkmck",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"Teste do Teste\",\r\n  \"registerCompany\": \"12126456000155\",\r\n  \"mail\": \"test@test.com\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"Marcio\",\r\n  \"telephone\": \"99999999999999\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"04777001\",\r\n      \"city\": \"São Paulo\",\r\n      \"state\": \"SP\",\r\n      \"district\": \"Rua das Flores\",\r\n      \"street\": \"Avenida Interlagos\",\r\n      \"number\": \"50\",\r\n      \"complement\": \"de 4503 ao fim - lado ímpar\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/company/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"company",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListCompany",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/company/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"company",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CountCompany",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/board/count",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"board",
+								"count"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CostCenter",
+			"item": [
+				{
+					"name": "ListarCostCenter",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verificar el código de estado de la respuesta\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Obtener la respuesta JSON\r",
+									"var responseData = pm.response.json();\r",
+									"\r",
+									"// Verificar que la respuesta no esté vacía\r",
+									"pm.test(\"Response is not empty\", function () {\r",
+									"    pm.expect(responseData).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body is correct\", function () {\r",
+									"    var responseBody = pm.response.json();\r",
+									"\r",
+									"    // Ajustamos la aserción para verificar que el cuerpo de la respuesta sea un objeto JSON\r",
+									"    pm.expect(responseBody).to.be.an('array');\r",
+									"\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is between 500ms and 700ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.within(500, 10000);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Successful GET request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CountCostCenter",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MTcsImV4cCI6MTcxNTIwNTkxN30.2yl-IQt_XJrcShl0BKnVVlsdL0ikYoNSSG6ismjheHo",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{urls}}count",
+							"host": [
+								"{{urls}}count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MostrarCostCenter",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.add({\r",
+									"    key: 'Authorization',\r",
+									"    value: 'Bearer ' + pm.environment.get('token')\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}65fb487f56d393375cc93f15",
+							"host": [
+								"{{urls}}65fb487f56d393375cc93f15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCostCenter",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"{{DepartmentName}}\",\r\n  \"boardId\": \"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}65fb487f56d393375cc93f15",
+							"host": [
+								"{{urls}}65fb487f56d393375cc93f15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateStatusCostCenter",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}65fb487f56d393375cc93f15",
+							"host": [
+								"{{urls}}65fb487f56d393375cc93f15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cost Center",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"// Función para generar un nombre de departamento aleatorio\r",
+									"function generateDepartmentName() {\r",
+									"    let departmentNames = [\"TecnologiaUNOi\",\"TIi\",\"Telecomunicacionesi\", \"Comunicacionesi\"]; \r",
+									"    return departmentNames[Math.floor(Math.random() * departmentNames.length)];\r",
+									"}\r",
+									"\r",
+									"// Almacenar el nombre del departamento en una variable de entorno\r",
+									"pm.environment.set(\"DepartmentName\", generateDepartmentName());\r",
+									"\r",
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({ //envia la solicitud http\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"{{DepartmentName}}\",\r\n  \"boardId\":\"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Caracter especial",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"// Función para generar un nombre de departamento aleatorio\r",
+									"function generateDepartmentName() {\r",
+									"    let departmentNames = [\"TecnologiaUNOi\",\"TIi\",\"Telecomunicacionesi\", \"Comunicacionesi\"]; \r",
+									"    return departmentNames[Math.floor(Math.random() * departmentNames.length)];\r",
+									"}\r",
+									"\r",
+									"// Almacenar el nombre del departamento en una variable de entorno\r",
+									"pm.environment.set(\"DepartmentName\", generateDepartmentName());\r",
+									"\r",
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({ //envia la solicitud http\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//validar el caracter especial\r",
+									"pm.test(\"Response de mensaje\",function(){\r",
+									"    pm.expect(pm.globals.get(\"message_variable_especial\")).to.eql(pm.response.json().error[0])\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"RecursoHUmanos!\",\r\n  \"boardId\":\"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Costname",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"// Función para generar un nombre de departamento aleatorio\r",
+									"function generateDepartmentName() {\r",
+									"    let departmentNames = [\"TecnologiaUNOi\",\"TIi\",\"Telecomunicacionesi\", \"Comunicacionesi\"]; \r",
+									"    return departmentNames[Math.floor(Math.random() * departmentNames.length)];\r",
+									"}\r",
+									"\r",
+									"// Almacenar el nombre del departamento en una variable de entorno\r",
+									"pm.environment.set(\"DepartmentName\", generateDepartmentName());\r",
+									"\r",
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({ //envia la solicitud http\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//validar el caracter especial\r",
+									"pm.test(\"Response de mensaje\",function(){\r",
+									"    pm.expect(pm.globals.get(\"message_variable_especial\")).to.eql(pm.response.json().error[0])\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"RecursoHUmanos!\",\r\n  \"boardId\":\"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cost CentId",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"// Función para generar un nombre de departamento aleatorio\r",
+									"function generateDepartmentName() {\r",
+									"    let departmentNames = [\"TecnologiaUNOi\",\"TIi\",\"Telecomunicacionesi\", \"Comunicacionesi\"]; \r",
+									"    return departmentNames[Math.floor(Math.random() * departmentNames.length)];\r",
+									"}\r",
+									"\r",
+									"// Almacenar el nombre del departamento en una variable de entorno\r",
+									"pm.environment.set(\"DepartmentName\", generateDepartmentName());\r",
+									"\r",
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({ //envia la solicitud http\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//validar el caracter especial\r",
+									"pm.test(\"Response de mensaje\",function(){\r",
+									"    pm.expect(pm.globals.get(\"message_variable_especial\")).to.eql(pm.response.json().error[0])\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"RecursoHUmanos!\",\r\n  \"boardId\":\"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Cost ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"\r",
+									"// Función para generar un nombre de departamento aleatorio\r",
+									"function generateDepartmentName() {\r",
+									"    let departmentNames = [\"TecnologiaUNOi\",\"TIi\",\"Telecomunicacionesi\", \"Comunicacionesi\"]; \r",
+									"    return departmentNames[Math.floor(Math.random() * departmentNames.length)];\r",
+									"}\r",
+									"\r",
+									"// Almacenar el nombre del departamento en una variable de entorno\r",
+									"pm.environment.set(\"DepartmentName\", generateDepartmentName());\r",
+									"\r",
+									"//Crear una variable de entorno para almacenar los _id de los boards. Digamos que se llama boardIds.\r",
+									"//Cada vez que añadas o actualices un board, asegúrate de actualizar también esta variable de entorno para reflejar los cambios.\r",
+									"//Puedes utilizar un script pre-request o test para actualizar la variable boardIds con los _id de los boards cada vez que realices una acción que pueda modificar estos datos.\r",
+									"\r",
+									"pm.sendRequest({ //envia la solicitud http\r",
+									"    url: 'https://develop.qacoders-academy.com.br/api/board/',\r",
+									"    method: 'GET',\r",
+									"    header: {\r",
+									"        'Content-Type': 'application/json',\r",
+									"        'Authorization': pm.environment.get(\"token\") // Reemplaza 'tu_token_aqui' con tu token real\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(\"Error al obtener la lista de boards:\", err);\r",
+									"    } else {\r",
+									"        try {\r",
+									"            var boards = res.json();\r",
+									"            var idList = [];\r",
+									"\r",
+									"            // Itera sobre cada objeto en boards y acumula los _id\r",
+									"            for (var i = 0; i < boards.length; i++) {\r",
+									"                var id = boards[i]._id;\r",
+									"                idList.push(id);\r",
+									"            }\r",
+									"\r",
+									"            // Selecciona un _id aleatorio de la lista\r",
+									"            var randomIndex = Math.floor(Math.random() * idList.length);\r",
+									"            var randomId = idList[randomIndex];\r",
+									"\r",
+									"            // Almacena el _id aleatorio en una variable de entorno\r",
+									"            pm.environment.set(\"randomId\", randomId);\r",
+									"\r",
+									"            console.log(\"Se ha almacenado un _id aleatorio:\", randomId);\r",
+									"        } catch (error) {\r",
+									"            console.error(\"Error al procesar la respuesta:\", error);\r",
+									"        }\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"//validar el caracter especial\r",
+									"pm.test(\"Response de mensaje\",function(){\r",
+									"    pm.expect(pm.globals.get(\"message_variable_especial\")).to.eql(pm.response.json().error[0])\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{token}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"costCenterName\": \"RecursoHUmanos!\",\r\n  \"boardId\":\"{{randomId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{urls}}",
+							"host": [
+								"{{urls}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "value",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MTcsImV4cCI6MTcxNTIwNTkxN30.2yl-IQt_XJrcShl0BKnVVlsdL0ikYoNSSG6ismjheHo",
+						"type": "string"
+					},
+					{
+						"key": "key",
+						"value": "Authorization",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Department",
+			"item": [
+				{
+					"name": "ListarDepartament",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.variables.get(\"variable_key\");\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"check if the responsebody\", function(){\r",
+									"    pm.expect(JSON.parse(responseBody).to.exist;\r",
+									"    //pm.expect(JSON.parse(responsaBody._id).to.not.be.empty;\r",
+									"})\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTUxMTk1MzYsImV4cCI6MTcxNTIwNTkzNn0.sn-5i2YDPfHj83vdIv-71HuhSe7g2jbZPxKDyH_keQE",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/department/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"department",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CrearDepartment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTMzOTEyMzYsImV4cCI6MTcxMzQ3NzYzNn0.P9wXhSoQJzVKu1WCGY9KtR0Ql0kEdOUiRFR6ncaCkg0",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departmentName\": \"Informatica D\",\r\n  \"costCenterId\": \"65fb487f56d393375cc93f15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/department/",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"department",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ContarDepartament",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTM0Nzc4OTksImV4cCI6MTcxMzU2NDI5OX0.sFJcIPuenkdPGoS6_ESgM-qgCOI8ttSuQutmRg-cjZc",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/department/count",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"department",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MostrarDepartamento",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTMyMzgzNTIsImV4cCI6MTcxMzMyNDc1Mn0.8_ENztaTj5cKqWinOC5T8sgclWNAGK-l6kP6-_g3zrM",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarDepartament",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTMzOTEyMzYsImV4cCI6MTcxMzQ3NzYzNn0.P9wXhSoQJzVKu1WCGY9KtR0Ql0kEdOUiRFR6ncaCkg0",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departmentName\": \"Informatica C\",\r\n  \"costCenterId\": \"65fb487f56d393375cc93f15\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/department/661df6da14ff021dc451a9fb",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"department",
+								"661df6da14ff021dc451a9fb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActualizarStatusDepartment",
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTVlOTFhMTc0OGM2MTcyMjliY2Q2NGUiLCJmdWxsTmFtZSI6IlFhLUNvZGVycy1TWVNBRE1JTiIsIm1haWwiOiJzeXNhZG1pbkBxYWNvZGVycy5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQ2L0V2R29tN0JxTTVlY0dZYVhDbXMueXN4MXhMYWhPWmkvVHp4MU9mb2U4ZWVBVm5taEJzeSIsImFjY2Vzc1Byb2ZpbGUiOiJTWVNBRE1JTiIsImNwZiI6IjExMTExMTExMTExIiwic3RhdHVzIjp0cnVlLCJhdWRpdCI6W3sicmVnaXN0ZXJlZEJ5Ijp7InVzZXJJZCI6IjExMTExMTExMTExMTExMTExMSIsInVzZXJMb2dpbiI6InN5c2FkbWluQHFhY29kZXJzLmNvbSJ9LCJyZWdpc3RyYXRpb25EYXRlIjoicXVhcnRhLWZlaXJhLCAyMi8xMS8yMDIzLCAyMDo0MToyMCBCUlQiLCJyZWdpc3RyYXRpb25OdW1iZXIiOiIwMSIsImNvbXBhbnlJZCI6IlFhLkNvZGVycyIsIl9pZCI6IjY1NWU5MWExNzQ4YzYxNzIyOWJjZDY0ZiJ9XSwiX192IjowLCJpYXQiOjE3MTMzOTEyMzYsImV4cCI6MTcxMzQ3NzYzNn0.P9wXhSoQJzVKu1WCGY9KtR0Ql0kEdOUiRFR6ncaCkg0",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://develop.qacoders-academy.com.br/api/department/status/661df6da14ff021dc451a9fb",
+							"protocol": "https",
+							"host": [
+								"develop",
+								"qacoders-academy",
+								"com",
+								"br"
+							],
+							"path": [
+								"api",
+								"department",
+								"status",
+								"661df6da14ff021dc451a9fb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "https://develop.qacoders-academy.com.br/api/costCenter/"
+		}
+	]
+}
